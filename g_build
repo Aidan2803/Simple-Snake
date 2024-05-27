@@ -1,0 +1,28 @@
+#!/bin/bash
+
+EXECUTABLE_NAME="snake"
+
+build_job() {
+    cd build
+    cmake ..
+    make
+    cd ..
+}
+
+if [ "$#" -gt 0 ]; then
+    if [ "$1" == "-r" ]; then
+        echo "Build and run started..."
+        build_job
+        ./build/${EXECUTABLE_NAME}
+    elif [ "$1" == "-b" ]; then
+        echo "Build started..."
+        build_job
+    else
+        echo "Usage: $0 [-r|-b]"
+        echo "  -r  Build and run the executable"
+        echo "  -b  Only build the executable"
+    fi
+else
+    echo "Build started..."
+    build_job
+fi

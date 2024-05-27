@@ -1,0 +1,8 @@
+Implement isFoodEaten method for food class, in order to use it in the game.hpp, to be able not to render outdated food.
+
+
+Planned activities:
+1) Add menu
+2) Extand logger class, to be able to not delete debug.log manually each time
+3) Fix bug with left->right, right-left, up-down, down-up moving
+4) Refactor naming of food-spawn class <?>

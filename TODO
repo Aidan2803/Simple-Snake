@@ -1,9 +1,6 @@
-Finish logger. for it to be ablt to take any amount of args and concat them to a string
-Integrate concat func into logToFile function (do logToFile functional on place where concat returns string)
-
 Planned activities:
 1) Add menu
-2) Extand logger class, to be able to not delete debug.log manually each time
-3) Fix bug with left->right, right-left, up-down, down-up moving
-4) Refactor naming of food-spawn class <?>
-5) Make snake move constantly, not only on key press
+2) Spawn few foods
+
+Learning notes:
+1) Dive deeper into the enable_if implementatin that i came uo with.

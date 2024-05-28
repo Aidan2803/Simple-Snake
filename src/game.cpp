@@ -1,6 +1,7 @@
 #include "game.hpp"
 
 void Game::InitGame() {
+  Logger::logToFile("<======================== Game initialization ===========================>");
   initscr();
   // Don't echo user input
   noecho();
@@ -8,10 +9,8 @@ void Game::InitGame() {
   curs_set(0);
   // Enable keypad mode to capture function keys
   keypad(stdscr, TRUE);
-  Logger::logToFile("right before timer start!");
 
   timer_->StartTimer();
-  Logger::logToFile("<======================== Game initialization ===========================>");
 }
 
 void Game::MapUserInput() {
@@ -35,8 +34,8 @@ void Game::MapUserInput() {
 
 void Game::Render() {
   snake_.get()->RenderSnake();
-  if(food_.get()->IsEaten() == false){
-     food_.get()->RenderFood();
+  if (food_.get()->IsEaten() == false) {
+    food_.get()->RenderFood();
   }
 }
 
@@ -52,23 +51,29 @@ bool Game::IsSnakeFoodCollision() {
 }
 
 void Game::GameLoop() {
+  nodelay(stdscr, TRUE);
   while (is_game_running_) {
     clear();
     Render();
     refresh();
 
-    user_input_ = getch();
-    MapUserInput();
+    int ch = getch();
+    if (ch != ERR) {
+      user_input_ = ch;
+      MapUserInput();
+      snake_.get()->SetDirection(direction_);
+    }
 
-    snake_.get()->SetDirection(direction_);
     snake_.get()->Move();
-    auto snake_to_perform_eat = IsSnakeFoodCollision();
-    if (snake_to_perform_eat) {
+    auto snake_found_food = IsSnakeFoodCollision();
+    if (snake_found_food && food_.get()->IsEaten() == false) {
       food_.get()->SetIsEatenTrue();
       food_.get()->DeleteFoodFromScreen();
       snake_.get()->Eat();
     }
 
     MangaeFoodSpawning();
+    napms(100);
   }
+  nodelay(stdscr, FALSE);
 }

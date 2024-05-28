@@ -21,6 +21,7 @@ public:
     is_game_running_ = true;
   }
   ~Game() {
+    Logger::logToFile("<|||||||||||||||||||||||||||||| Game exits ||||||||||||||||||||||||||||||>");
     ChangeIsGameRunningToFalse();
     delete is_timer_exceeded_flag_;
     delete timer_;

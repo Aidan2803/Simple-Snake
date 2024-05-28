@@ -4,6 +4,7 @@
 #include <mutex>
 #include <thread>
 
+#include "constants.hpp"
 #include "logger.hpp"
 
 #pragma once
@@ -28,7 +29,7 @@ private:
       m_.lock();
       *flag_ = true;
       m_.unlock();
-      sleep(8);
+      sleep(FOOD_SPAWN_INTERVAL);
     }
   }
 

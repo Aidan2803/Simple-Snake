@@ -20,6 +20,7 @@ void Snake::Move() {
     default:
       break;
   }
+  Logger::logToFile("move");
   snake_.push_front(head);
   snake_.pop_back();
 }

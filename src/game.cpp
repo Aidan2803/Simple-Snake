@@ -11,6 +11,7 @@ void Game::InitGame() {
   Logger::logToFile("right before timer start!");
 
   timer_->StartTimer();
+  Logger::logToFile("<======================== Game initialization ===========================>");
 }
 
 void Game::MapUserInput() {
@@ -34,7 +35,9 @@ void Game::MapUserInput() {
 
 void Game::Render() {
   snake_.get()->RenderSnake();
-  food_.get()->RenderFood();
+  if(food_.get()->IsEaten() == false){
+     food_.get()->RenderFood();
+  }
 }
 
 bool Game::IsSnakeFoodCollision() {

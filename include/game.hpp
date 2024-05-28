@@ -39,9 +39,6 @@ public:
   void MangaeFoodSpawning(){
     if(*is_timer_exceeded_flag_ == true){
       food_.get()->SpawnFood();
-      if(food_.get()->IsEaten() == true){
-        food_.get()->RenderFood();
-      }
 
       mutex_->lock();
       *is_timer_exceeded_flag_ = false;

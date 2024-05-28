@@ -4,6 +4,7 @@
 
 #include "enums.hpp"
 #include "point.hpp"
+#include "logger.hpp"
 
 #define SNAKE_HPP
 #ifdef SNAKE_HPP

@@ -1,6 +1,3 @@
-Remove deleteFoodFromScreen method as it is useless, in order to not render food we simply skip
-rendering if food is already eaten
-
 Planned activities:
 1) Add menu
 2) Spawn few foods

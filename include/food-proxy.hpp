@@ -16,7 +16,9 @@ public:
   }
   void RenderFood() {
     for (auto food : food_vector_) {
-      mvprintw(food.GetPoint().y_, food.GetPoint().x_, food.GetFoodChar());
+      if(!food.IsEaten()){
+        mvprintw(food.GetPoint().y_, food.GetPoint().x_, food.GetFoodChar());
+      }
     }
   }
 

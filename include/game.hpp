@@ -38,7 +38,7 @@ public:
 
   void MangaeFoodSpawning() {
     if (*is_timer_exceeded_flag_ == true) {
-      food_.get()->SpawnFood();
+      food_proxy_.get()->SpawnFood();
 
       mutex_->lock();
       *is_timer_exceeded_flag_ = false;
@@ -52,7 +52,7 @@ private:
   char user_input_;
   SnakeDirection direction_;
   const std::unique_ptr<Snake> snake_ = std::make_unique<Snake>();
-  const std::unique_ptr<FoodProxy> food_ = std::make_unique<FoodProxy>();
+  const std::unique_ptr<FoodProxy> food_proxy_ = std::make_unique<FoodProxy>();
   bool *is_timer_exceeded_flag_;
 
   bool is_game_running_;

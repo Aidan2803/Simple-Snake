@@ -34,16 +34,14 @@ void Game::MapUserInput() {
 
 void Game::Render() {
   snake_.get()->RenderSnake();
-  if (food_.get()->IsEaten() == false) {
-    food_.get()->RenderFood();
-  }
+  food_proxy_.get()->RenderFood();
 }
 
 std::pair<bool, Point> Game::IsSnakeFoodCollision() {
   const auto snake_head = snake_.get()->get_head();
 
-  for (auto food : food_.GetFoodVector()) {
-    food_point = food.GetFoodPoint();
+  for (auto food : food_proxy_.get()->GetFoodVector()) {
+    auto food_point = food.GetPoint();
     if (food_point.x_ == snake_head.x_ && food_point.y_ == snake_head.y_) {
       return std::pair<bool, Point>(true, snake_head);
     } else {
@@ -68,8 +66,8 @@ void Game::GameLoop() {
 
     snake_.get()->Move();
     auto snake_found_food = IsSnakeFoodCollision();
-    if (snake_found_food.first && food_.get()->IsEaten(snake_found_food.second) == false) {
-      food_.get()->SetIsEatenTrue(snake_found_food.second);
+    if (snake_found_food.first && food_proxy_.get()->IsEaten(snake_found_food.second) == false) {
+      food_proxy_.get()->SetIsEatenTrue(snake_found_food.second);
       snake_.get()->Eat();
     }
 

@@ -1,3 +1,5 @@
+#include <vector>
+
 #include "food.hpp"
 
 #pragma once
@@ -8,20 +10,44 @@ public:
   void SpawnFood() {
     srand(time(NULL));
 
-    food_.GetPoint().x = rand() % kGameField_X_Asix;
-    food_.GetPoint().y = rand() % kGameField_Y_Asix;
+    for (auto food : food_vector_) {
+      food.SetPoint(Point(rand() % kGameField_X_Asix, rand() % kGameField_Y_Asix));
+    }
   }
-  void RenderFood() { mvprintw(food_.GetPoint().y, food_.GetPoint().x, food_.GetFoodChar());}
-  void DeleteFoodFromScreen() {
-    mvprintw(food_.GetPoint().y, food_.GetPoint().x, "_");
-    Logger::logToFile("delete food from the screen");
-    refresh();
+  void RenderFood() {
+    for (auto food : food_vector_) {
+      mvprintw(food.GetPoint().y_, food.GetPoint().x_, food.GetFoodChar());
+    }
   }
-  void SetIsEatenTrue(){food_.SetIsEatenTrue();}
-  bool IsEaten(){return food_.IsEaten();}
 
-  Point GetFoodPoint() { return food_.GetPoint(); }
+  void SetIsEatenTrue(Point point) {
+    auto eaten_food_id = Food::CreateIDFromPoint(point);
+    for (auto& food : food_vector_) {
+      if (eaten_food_id == food.GetID()) {
+        food.SetIsEatenTrue();
+      }
+    }
+  }
+  bool IsEaten(Point point) {
+    auto eaten_food_id = Food::CreateIDFromPoint(point);
+    for (auto& food : food_vector_) {
+      if (eaten_food_id == food.GetID()) {
+        food.IsEaten();
+      }
+    }
+  }
+
+  Point GetFoodPoint(Point point) {
+    auto eaten_food_id = Food::CreateIDFromPoint(point);
+    for (auto& food : food_vector_) {
+      if (eaten_food_id == food.GetID()) {
+        return food.GetPoint();
+      }
+    }
+  }
+
+  const std::vector<Food>& GetFoodVector() { return food_vector_; }
 
 private:
-  Food food_;
+  std::vector<Food> food_vector_;
 };

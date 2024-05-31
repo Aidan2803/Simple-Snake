@@ -39,14 +39,16 @@ void Game::Render() {
   }
 }
 
-bool Game::IsSnakeFoodCollision() {
-  const auto food_point = food_.get()->GetFoodPoint();
+std::pair<bool, Point> Game::IsSnakeFoodCollision() {
   const auto snake_head = snake_.get()->get_head();
 
-  if (food_point.x == snake_head.x && food_point.y == snake_head.y) {
-    return true;
-  } else {
-    return false;
+  for (auto food : food_.GetFoodVector()) {
+    food_point = food.GetFoodPoint();
+    if (food_point.x_ == snake_head.x_ && food_point.y_ == snake_head.y_) {
+      return std::pair<bool, Point>(true, snake_head);
+    } else {
+      return std::pair<bool, Point>(false, snake_head);
+    }
   }
 }
 
@@ -66,9 +68,8 @@ void Game::GameLoop() {
 
     snake_.get()->Move();
     auto snake_found_food = IsSnakeFoodCollision();
-    if (snake_found_food && food_.get()->IsEaten() == false) {
-      food_.get()->SetIsEatenTrue();
-      food_.get()->DeleteFoodFromScreen();
+    if (snake_found_food.first && food_.get()->IsEaten(snake_found_food.second) == false) {
+      food_.get()->SetIsEatenTrue(snake_found_food.second);
       snake_.get()->Eat();
     }
 

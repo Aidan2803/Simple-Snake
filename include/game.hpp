@@ -5,15 +5,14 @@
 
 #include "enums.hpp"
 #include "food-proxy.hpp"
+#include "logger.hpp"
 #include "snake.hpp"
 #include "timer.hpp"
-#include "logger.hpp"
 
 #pragma once
 
 class Game {
 public:
-
   Game() {
     is_timer_exceeded_flag_ = new bool(false);
     mutex_ = new std::mutex();
@@ -37,8 +36,8 @@ public:
     timer_->UpdateIsGamerunningState(false);
   }
 
-  void MangaeFoodSpawning(){
-    if(*is_timer_exceeded_flag_ == true){
+  void MangaeFoodSpawning() {
+    if (*is_timer_exceeded_flag_ == true) {
       food_.get()->SpawnFood();
 
       mutex_->lock();
@@ -47,7 +46,7 @@ public:
     }
   }
 
-  bool IsSnakeFoodCollision();
+  std::pair<bool, Point> IsSnakeFoodCollision();
 
 private:
   char user_input_;

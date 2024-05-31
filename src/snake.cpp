@@ -2,20 +2,20 @@
 
 void Snake::Move() {
   Point head = get_head();
-  Logger::logToFile("x ", head.x, " y ", head.y);
+  Logger::logToFile("x ", head.x_, " y ", head.y_);
 
   switch (direction_) {
     case SnakeDirection::UP:
-      head.y--;
+      head.y_--;
       break;
     case SnakeDirection::DOWN:
-      head.y++;
+      head.y_++;
       break;
     case SnakeDirection::RIGHT:
-      head.x++;
+      head.x_++;
       break;
     case SnakeDirection::LEFT:
-      head.x--;
+      head.x_--;
       break;
     default:
       break;
@@ -28,16 +28,16 @@ void Snake::Move() {
 void Snake::Eat() {
   Point newNodePoint = snake_.back();
   if (direction_ == SnakeDirection::LEFT) {
-    newNodePoint.x--;
+    newNodePoint.x_--;
     snake_.push_back(newNodePoint);
   } else if (direction_ == SnakeDirection::RIGHT) {
-    newNodePoint.x++;
+    newNodePoint.x_++;
     snake_.push_back(newNodePoint);
   } else if (direction_ == SnakeDirection::UP) {
-    newNodePoint.y--;
+    newNodePoint.y_--;
     snake_.push_back(newNodePoint);
   } else if (direction_ == SnakeDirection::DOWN) {
-    newNodePoint.y++;
+    newNodePoint.y_++;
     snake_.push_back(newNodePoint);
   }
 }
@@ -53,20 +53,19 @@ void Snake::SetDirection(SnakeDirection direction) {
   direction_ = direction;
 }
 
-bool Snake::CheckForCollisions(){
+bool Snake::CheckForCollisions() {
   Point head = snake_.front();
 
-  for(auto a : snake_){
-    if(head.x == a.x && head.y == a.y){
+  for (auto a : snake_) {
+    if (head.x_ == a.x_ && head.y_ == a.y_) {
       return true;
     }
   }
   return false;
 }
 
-void Snake::RenderSnake(){
-  for(auto node : snake_){
-    mvprintw(node.y, node.x, snake_char_);
+void Snake::RenderSnake() {
+  for (auto node : snake_) {
+    mvprintw(node.y_, node.x_, snake_char_);
   }
-
 }

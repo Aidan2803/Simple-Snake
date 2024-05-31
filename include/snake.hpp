@@ -3,8 +3,8 @@
 #include <deque>
 
 #include "enums.hpp"
-#include "point.hpp"
 #include "logger.hpp"
+#include "point.hpp"
 
 #define SNAKE_HPP
 #ifdef SNAKE_HPP

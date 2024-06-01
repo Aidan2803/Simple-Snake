@@ -30,6 +30,7 @@ public:
   }
 
   void SetIsEatenTrue() { is_eaten_ = true; }
+  void SetIsEatenFalse() { is_eaten_ = false; }
 
   bool IsEaten() { return is_eaten_; }
 

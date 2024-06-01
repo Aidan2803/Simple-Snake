@@ -19,6 +19,7 @@ public:
 
     for (auto &food : food_vector_) {
       food.SetPoint(Point(rand() % kGameField_X_Asix, rand() % kGameField_Y_Asix));
+      food.SetIsEatenFalse();
     }
   }
   void RenderFood() {

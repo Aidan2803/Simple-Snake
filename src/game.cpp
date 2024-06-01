@@ -1,7 +1,6 @@
 #include "game.hpp"
 
 void Game::InitGame() {
-  Logger::logToFile("<======================== Game initialization ===========================>");
   initscr();
   // Don't echo user input
   noecho();
@@ -40,14 +39,14 @@ void Game::Render() {
 std::pair<bool, Point> Game::IsSnakeFoodCollision() {
   const auto snake_head = snake_.get()->get_head();
 
-  for (auto food : food_proxy_.get()->GetFoodVector()) {
-    auto food_point = food.GetPoint();
+  for (auto &food : food_proxy_.get()->GetFoodVector()) {
+    const auto food_point = food.GetPoint();
     if (food_point.x_ == snake_head.x_ && food_point.y_ == snake_head.y_) {
+      Logger::log("[GAME] Snake food colision true ", snake_head.x_, " ", snake_head.y_);
       return std::pair<bool, Point>(true, snake_head);
-    } else {
-      return std::pair<bool, Point>(false, snake_head);
     }
   }
+  return std::pair<bool, Point>(false, snake_head);
 }
 
 void Game::GameLoop() {

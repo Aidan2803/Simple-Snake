@@ -14,13 +14,14 @@
 class Game {
 public:
   Game() {
+    Logger::log("<======================== Game initialization ===========================>");
     is_timer_exceeded_flag_ = new bool(false);
     mutex_ = new std::mutex();
     timer_ = new Timer(is_game_running_, is_timer_exceeded_flag_, *mutex_);
     is_game_running_ = true;
   }
   ~Game() {
-    Logger::logToFile("<|||||||||||||||||||||||||||||| Game exits ||||||||||||||||||||||||||||||>");
+    Logger::log("<|||||||||||||||||||||||||||||| Game exits ||||||||||||||||||||||||||||||>");
     ChangeIsGameRunningToFalse();
     delete is_timer_exceeded_flag_;
     delete timer_;

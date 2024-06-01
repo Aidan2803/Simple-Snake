@@ -19,7 +19,7 @@ public:
   }
   void StartTimer() {
     timer_thread_ = std::thread(&Timer::TimerFunction, this);
-    Logger::logToFile("after thread was created and started");
+    Logger::log("after thread was created and started");
   }
   void UpdateIsGamerunningState(bool is_game_running) { is_game_running_ = is_game_running; }
 
@@ -29,7 +29,7 @@ private:
       m_.lock();
       *flag_ = true;
       m_.unlock();
-      sleep(FOOD_SPAWN_INTERVAL);
+      sleep(kFoodSpawnInterval);
     }
   }
 

@@ -1,6 +1,7 @@
 Planned activities:
 1) Add menu
 2) Spawn few foods
+3) Add debug mode, with posibility to turn off random food spawn and set a point for food to be spawned on
 
 Learning notes:
 1) Dive deeper into the enable_if implementatin that i came uo with.

@@ -11,17 +11,17 @@
 
 class Food {
 public:
-  Food() : is_eaten_{false}, point_{0, 0} { foodChar_ = new char('X'); }
+  Food() : foodChar_{'X'}, is_eaten_{false}, point_{0, 0} {}
 
-  Food(unsigned int x, unsigned int y, char foodChar) : is_eaten_{false}, point_{x, y} {
-    foodChar_ = new char(foodChar);
+  Food(unsigned int x, unsigned int y, char foodChar) : foodChar_{foodChar}, is_eaten_{false}, point_{x, y}{}
+
+  ~Food() {
+    Logger::log("Food destructor");
   }
 
-  ~Food() { delete foodChar_; }
-
-  const Point GetPoint() { return point_; }
-  const char* GetFoodChar() { return foodChar_; }
-  const std::string& GetID() { return id_; }
+  const Point GetPoint() const { return point_; }
+  const char GetFoodChar() const { return foodChar_; }
+  const std::string& GetID() const { return id_; }
 
   void SetPoint(Point point) {
     point_.x_ = point.x_;
@@ -39,7 +39,7 @@ private:
   static std::string CreateIDFromPoint(Point point) { return std::to_string(point.x_) + std::to_string(point.y_); }
 
   Point point_;
-  const char* foodChar_;
+  const char foodChar_;
   bool is_eaten_;
   std::string id_;
 };

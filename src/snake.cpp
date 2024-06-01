@@ -2,7 +2,7 @@
 
 void Snake::Move() {
   Point head = get_head();
-  Logger::logToFile("x ", head.x_, " y ", head.y_);
+  Logger::log(head.x_, " ", head.y_);
 
   switch (direction_) {
     case SnakeDirection::UP:
@@ -20,7 +20,6 @@ void Snake::Move() {
     default:
       break;
   }
-  Logger::logToFile("move");
   snake_.push_front(head);
   snake_.pop_back();
 }

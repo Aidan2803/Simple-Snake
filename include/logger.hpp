@@ -7,7 +7,7 @@
 class Logger {
 public:
   template <typename... Args>
-  static void logToFile(Args... args) {
+  static void log(Args... args) {
     std::string result;
     concatHelper(result, args...);
 

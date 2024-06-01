@@ -1,7 +1,6 @@
 #include "game.hpp"
 
 void Game::InitGame() {
-  Logger::logToFile("<======================== Game initialization ===========================>");
   initscr();
   // Don't echo user input
   noecho();
@@ -34,20 +33,20 @@ void Game::MapUserInput() {
 
 void Game::Render() {
   snake_.get()->RenderSnake();
-  if (food_.get()->IsEaten() == false) {
-    food_.get()->RenderFood();
-  }
+  food_proxy_.get()->RenderFood();
 }
 
-bool Game::IsSnakeFoodCollision() {
-  const auto food_point = food_.get()->GetFoodPoint();
+std::pair<bool, Point> Game::IsSnakeFoodCollision() {
   const auto snake_head = snake_.get()->get_head();
 
-  if (food_point.x == snake_head.x && food_point.y == snake_head.y) {
-    return true;
-  } else {
-    return false;
+  for (auto &food : food_proxy_.get()->GetFoodVector()) {
+    const auto food_point = food.GetPoint();
+    if (food_point.x_ == snake_head.x_ && food_point.y_ == snake_head.y_) {
+      Logger::log("[GAME] Snake food colision true ", snake_head.x_, " ", snake_head.y_);
+      return std::pair<bool, Point>(true, snake_head);
+    }
   }
+  return std::pair<bool, Point>(false, snake_head);
 }
 
 void Game::GameLoop() {
@@ -66,9 +65,8 @@ void Game::GameLoop() {
 
     snake_.get()->Move();
     auto snake_found_food = IsSnakeFoodCollision();
-    if (snake_found_food && food_.get()->IsEaten() == false) {
-      food_.get()->SetIsEatenTrue();
-      food_.get()->DeleteFoodFromScreen();
+    if (snake_found_food.first && food_proxy_.get()->IsEaten(snake_found_food.second) == false) {
+      food_proxy_.get()->SetIsEatenTrue(snake_found_food.second);
       snake_.get()->Eat();
     }
 

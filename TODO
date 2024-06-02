@@ -2,7 +2,7 @@ Planned activities:
 1) Add menu
 2) Add debug mode, with posibility to turn off random food spawn and set a point for food to be spawned on
 3) Add high score board and score counter on the screen
-4) Add dificulty levels, easy - snake cant eat herself, hard - if snake eats herself game is over
+4) Add difficulty levels, easy - snake cant eat herself, hard - if snake eats herself game is over
 
 Learning notes:
 1) Dive deeper into the enable_if implementatin that i came uo with.
